@@ -13,7 +13,6 @@ lazy val `sbt-openapi-generator` = (project in file("."))
     crossScalaVersions := Seq(scalaVersion.value, "2.11.12"),
     crossSbtVersions := List("0.13.17", "1.3.10"),
     sbtPlugin := true,
-
     publishMavenStyle := true,
 
     scriptedLaunchOpts := {
@@ -24,10 +23,11 @@ lazy val `sbt-openapi-generator` = (project in file("."))
 
     resolvers ++= Seq(
       Resolver.sbtPluginRepo("snapshots"),
-      Resolver.sonatypeRepo("snapshots")
+      Resolver.sonatypeRepo("snapshots"),
+      "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
-    version := "7.8.0",
+    version := "7.9.0-customized",
 
     homepage := Some(url("https://openapi-generator.tech")),
 
@@ -37,19 +37,12 @@ lazy val `sbt-openapi-generator` = (project in file("."))
 
     licenses += ("The Apache Software License, Version 2.0", url("https://www.apache.org/licenses/LICENSE-2.0.txt")),
 
-    developers += Developer(
-      id = "openapitools",
-      name = "OpenAPI-Generator Contributors",
-      email = "team@openapitools.org",
-      url = url("https://github.com/OpenAPITools")
+    libraryDependencies ++= Seq(
+      "org.openapitools" % "openapi-generator" % "7.9.0-customized",
+      "org.openapitools" % "openapi-generator-core" % "7.8.0",
+      "com.fasterxml.jackson.core" % "jackson-databind" % "2.17.2",
+      "io.swagger.parser.v3" %"swagger-parser" % "2.1.22"
     ),
-
-    scmInfo := Some(
-      ScmInfo(
-        browseUrl = url("https://github.com/OpenAPITools/openapi-generator"),
-        connection = "scm:git:git://github.com/OpenAPITools/openapi-generator.git",
-        devConnection = "scm:git:ssh://git@github.com:OpenAPITools/openapi-generator.git")
-    ),
-
-    libraryDependencies += "org.openapitools" % "openapi-generator" % "7.8.0"
+    addCommandAlias("build", ";clean;scripted"), // note: `scripted` to invoke plugin tests
+    addCommandAlias("release", ";build;publish")
   ).enablePlugins(SbtPlugin)

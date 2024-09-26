@@ -1,0 +1,63 @@
+version: 2.1
+executorType: machine
+
+orbs:
+  tools: moda/tools@0.26.0
+
+jobs:
+  build:
+    machine:
+      image: default
+    resource_class: large
+    working_directory: ~/sbt-openapi-generator
+    steps:
+      - tools/setup-artifactory-sbt
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "build.sbt" }}
+            - cache-
+      - run: sbt build
+      - save_cache:
+          paths:
+            - ~/.cache
+            - ~/.ivy2/cache
+            - ~/.sbt
+          key: v2-dependencies--{{ .Branch }}-{{ .Revision }}
+      - save_cache:
+          key: v2-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/sbt-openapi-generator
+
+  release:
+    machine:
+      image: default
+    resource_class: large
+    working_directory: ~/sbt-openapi-generator
+    steps:
+      - tools/setup-artifactory-sbt
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "build.sbt" }}
+            - cache-
+      - run: sbt release
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: jfrog
+          filters:
+            tags:
+              ignore: /.*/
+  release:
+    jobs:
+      - release:
+          context: jfrog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v.*/
