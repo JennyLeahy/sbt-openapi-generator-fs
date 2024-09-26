@@ -28,7 +28,7 @@ lazy val `sbt-openapi-generator` = (project in file("."))
       "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
-    version := "7.9.0-customized",
+    version := "7.9.0-SNAPSHOT",
 
     homepage := Some(url("https://openapi-generator.tech")),
 
@@ -53,9 +53,6 @@ lazy val `sbt-openapi-generator` = (project in file("."))
     ),
 
     libraryDependencies ++= Seq(
-      "org.openapitools" % "openapi-generator" % "7.9.0-customized",
-      "org.openapitools" % "openapi-generator-core" % "7.8.0",
-      "com.fasterxml.jackson.core" % "jackson-databind" % "2.17.2",
-      "io.swagger.parser.v3" %"swagger-parser" % "2.1.22"
+      "org.openapitools" % "openapi-generator" % "7.9.0-SNAPSHOT"
     )
   ).enablePlugins(SbtPlugin)
