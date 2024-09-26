@@ -1,6 +1,9 @@
 scalaVersion := "2.12.10"
 
-externalResolvers += Resolver.sonatypeRepo("snapshots")
+externalResolvers ++= Seq(
+  Resolver.sonatypeRepo("snapshots"),
+  "Artifactory" at "https://moda.jfrog.io/moda/sbt"
+),
 
 lazy val generated = project.in(file("generated"))
   .enablePlugins(OpenApiGeneratorPlugin)

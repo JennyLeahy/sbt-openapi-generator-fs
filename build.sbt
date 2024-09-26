@@ -24,7 +24,8 @@ lazy val `sbt-openapi-generator` = (project in file("."))
 
     resolvers ++= Seq(
       Resolver.sbtPluginRepo("snapshots"),
-      Resolver.sonatypeRepo("snapshots")
+      Resolver.sonatypeRepo("snapshots"),
+      "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
     version := "7.9.0-customized",
