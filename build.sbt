@@ -54,5 +54,7 @@ lazy val `sbt-openapi-generator` = (project in file("."))
 
     libraryDependencies ++= Seq(
       "org.openapitools" % "openapi-generator" % "7.9.0-SNAPSHOT"
-    )
+    ),
+    addCommandAlias("build", ";clean;scripted"), // note: `scripted` to invoke plugin tests
+    addCommandAlias("release", ";build;publish")
   ).enablePlugins(SbtPlugin)
