@@ -24,10 +24,11 @@ lazy val `sbt-openapi-generator` = (project in file("."))
 
     resolvers ++= Seq(
       Resolver.sbtPluginRepo("snapshots"),
-      Resolver.sonatypeRepo("snapshots")
+      Resolver.sonatypeRepo("snapshots"),
+      "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
-    version := "7.9.0",
+    version := "7.10.0-MODA1",
 
     homepage := Some(url("https://openapi-generator.tech")),
 
@@ -51,5 +52,9 @@ lazy val `sbt-openapi-generator` = (project in file("."))
         devConnection = "scm:git:ssh://git@github.com:OpenAPITools/openapi-generator.git")
     ),
 
-    libraryDependencies += "org.openapitools" % "openapi-generator" % "7.9.0"
+    libraryDependencies ++= Seq(
+      "org.openapitools" % "openapi-generator" % "7.10.0-MODA1"
+    ),
+    addCommandAlias("build", ";clean;scripted"), // note: `scripted` to invoke plugin tests
+    addCommandAlias("release", ";build;publish")
   ).enablePlugins(SbtPlugin)

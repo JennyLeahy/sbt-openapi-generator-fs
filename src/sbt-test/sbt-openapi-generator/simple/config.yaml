@@ -1,5 +1,5 @@
-apiPackage: "org.openapitools.client.custom.api"
-generatorName: "scala-akka"
+generatorName: "scala-http4s"
 outputDir : "generated"
 additionalProperties:
-  dateLibrary: "joda"
+  projectName: "petstore-http4s-client"
+  packageName: "org.openapitools.client"

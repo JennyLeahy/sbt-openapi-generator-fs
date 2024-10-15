@@ -1,6 +1,4 @@
-scalaVersion := "2.12.10"
-
-externalResolvers += Resolver.sonatypeRepo("snapshots")
+scalaVersion := "3.3.3"
 
 lazy val generated = project.in(file("generated"))
   .enablePlugins(OpenApiGeneratorPlugin)
