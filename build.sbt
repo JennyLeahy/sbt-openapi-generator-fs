@@ -28,7 +28,7 @@ lazy val `sbt-openapi-generator` = (project in file("."))
       "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
-    version := "7.12.0",
+    version := "7.13.0-MODA",
 
     homepage := Some(url("https://openapi-generator.tech")),
 
