@@ -28,7 +28,7 @@ lazy val `sbt-openapi-generator` = (project in file("."))
       "Artifactory" at "https://moda.jfrog.io/moda/sbt"
     ),
 
-    version := "7.10.0-MODA1",
+    version := "7.12.0",
 
     homepage := Some(url("https://openapi-generator.tech")),
 
@@ -53,7 +53,7 @@ lazy val `sbt-openapi-generator` = (project in file("."))
     ),
 
     libraryDependencies ++= Seq(
-      "org.openapitools" % "openapi-generator" % "7.10.0-MODA1"
+      "org.openapitools" % "openapi-generator" % "7.11.0"
     ),
     addCommandAlias("build", ";clean;scripted"), // note: `scripted` to invoke plugin tests
     addCommandAlias("release", ";build;publish")
